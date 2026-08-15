@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="fart"
+run/main_scene="uid://cgft78lgld52b"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*uid://cda2xh6bq70sy"
 
 [display]
 
