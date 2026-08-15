@@ -29,9 +29,11 @@ F.A.R.T. is a small tower-defence game where every turret begins identical and e
 
 ### Turret placement
 
-- The player spends coins to place a basic turret anywhere beside the path, without a grid.
-- Turrets cannot overlap the path or another turret. Path-blocking is excluded to avoid dynamic pathfinding.
-- Placement preview shows validity and attack range.
+- The player spends coins to place a basic turret on a grid cell beside the path.
+- Placement snaps to the map grid. Each cell is marked as buildable or invalid by the map.
+- Turrets cannot occupy the path, invalid cells, or cells already occupied by another turret. Path-blocking is excluded to avoid dynamic pathfinding.
+- A placement-area check validates the turret footprint before placement.
+- Placement preview shows the snapped position, validity, and attack range.
 - Once placed, a turret stays in position.
 
 ### Automatic combat
@@ -102,7 +104,7 @@ Initial tuning targets, to be changed through playtesting:
 ### Required
 
 - One fixed map and path.
-- Free placement with range preview and collision validation.
+- Grid-snapped placement with range preview and placement validation.
 - One basic turret with automatic targeting and projectiles.
 - Three targeting priorities.
 - Three enemy categories and their traits.
@@ -172,4 +174,4 @@ Initial tuning targets, to be changed through playtesting:
 
 ## Next Milestone
 
-Build a grey-box prototype containing one path, mixed coloured enemy circles, placeable turret circles, the three targeting priorities, and the first six-kill evolution. Continue only if the player can deliberately produce Quick, Heavy, or Burst by changing targeting and placement.
+Build a grey-box prototype containing one path, mixed coloured enemy circles, grid-snapped placeable turret circles, the three targeting priorities, and the first six-kill evolution. Continue only if the player can deliberately produce Quick, Heavy, or Burst by changing targeting and placement.

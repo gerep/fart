@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://crp8t36tadjcf"]
+
+[ext_resource type="Texture2D" uid="uid://8sr5gjclacft" path="res://assets/images/towerDefense_tile204.png" id="1_b5i8c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20cm6"]
+radius = 192.0
+
+[node name="Turret" type="Node2D" unique_id=684046675]
+rotation = 1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1519175421]
+texture = ExtResource("1_b5i8c")
+
+[node name="Range" type="Area2D" parent="." unique_id=569392839]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range" unique_id=1236560470]
+shape = SubResource("CircleShape2D_20cm6")
