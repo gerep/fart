@@ -3,9 +3,12 @@ extends Node2D
 @onready var tile_map_layer: TileMapLayer = $TileMapLayer
 @onready var buildable_layer: TileMapLayer = $BuildableLayer
 @onready var placement_preview: Node2D = $PlacementPreview
+@onready var path: Path2D = $Path2D
 @onready var turrets: Node2D = $Turrets
+@onready var enemies: Node2D = $Enemies
 
 const TURRET = preload("uid://crp8t36tadjcf")
+const ENEMY = preload("res://scenes/enemies/enemy.tscn")
 
 var _buildable_cells: Array[Vector2i] = []
 var _occupied_cells: Dictionary = {}
@@ -15,6 +18,13 @@ var _preview_turret: Node2D
 
 func _ready() -> void:
 	GameManager.build_mode.connect(_on_build_mode)
+	_spawn_enemy()
+
+
+func _spawn_enemy() -> void:
+	var enemy := ENEMY.instantiate()
+	enemies.add_child(enemy)
+	enemy.setup(path)
 
 
 func _process(_delta: float) -> void:
@@ -93,6 +103,7 @@ func _try_place_turret() -> void:
 func _place_preview_turret() -> void:
 	_preview_turret = TURRET.instantiate()
 	placement_preview.add_child(_preview_turret)
+	_preview_turret.call("set_combat_enabled", false)
 
 
 func _remove_place_preview_turret() -> void:

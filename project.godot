@@ -24,6 +24,11 @@ GameManager="*uid://cda2xh6bq70sy"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[layer_names]
+
+2d_physics/layer_2="ENEMY"
+2d_physics/layer_3="BULLET"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
@@ -31,4 +36,3 @@ window/stretch/aspect="expand"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-renderer/rendering_method="forward_plus"

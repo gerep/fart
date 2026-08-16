@@ -641,9 +641,9 @@ sources/1 = SubResource("TileSetAtlasSource_tefeu")
 
 [sub_resource type="Curve2D" id="Curve2D_o5qli"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -2, 223, 0, 0, 0, 0, 1536, 222)
+"points": PackedVector2Array(0, 0, 0, 0, -2, 223, -108.03622, 66.31392, 108.03622, -66.31392, 461, 203, -153.84232, 64.900566, 153.84232, -64.900566, 1225, 275, 0, 0, 0, 0, 1536, 222)
 }
-point_count = 2
+point_count = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5qli"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -673,6 +673,8 @@ tile_set = SubResource("TileSet_8bdhr")
 
 [node name="Turrets" type="Node2D" parent="." unique_id=331287401]
 
+[node name="Enemies" type="Node2D" parent="." unique_id=586140552]
+
 [node name="Path2D" type="Path2D" parent="." unique_id=617201335]
 curve = SubResource("Curve2D_o5qli")
 
@@ -680,12 +682,12 @@ curve = SubResource("Curve2D_o5qli")
 
 [node name="HUD" type="Control" parent="CanvasLayer" unique_id=941564805]
 layout_mode = 3
-mouse_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("3_jyhfs")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=2112838891]
