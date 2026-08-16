@@ -1,5 +1,8 @@
 extends Node2D
 
+@export_range(1, 100, 1) var enemy_count: int = 5
+@export var enemy_spawn_interval: float = 0.75
+
 @onready var tile_map_layer: TileMapLayer = $TileMapLayer
 @onready var buildable_layer: TileMapLayer = $BuildableLayer
 @onready var placement_preview: Node2D = $PlacementPreview
@@ -18,11 +21,20 @@ var _preview_turret: Node2D
 
 func _ready() -> void:
 	GameManager.build_mode.connect(_on_build_mode)
-	_spawn_enemy()
+	_spawn_enemies()
+
+
+func _spawn_enemies() -> void:
+	for index in enemy_count:
+		_spawn_enemy()
+
+		if index < enemy_count - 1:
+			await get_tree().create_timer(enemy_spawn_interval).timeout
 
 
 func _spawn_enemy() -> void:
-	var enemy := ENEMY.instantiate()
+	var enemy: Enemy = ENEMY.instantiate()
+	enemy.speed = randf_range(enemy.speed * 0.8, enemy.speed * 1.2)
 	enemies.add_child(enemy)
 	enemy.setup(path)
 
