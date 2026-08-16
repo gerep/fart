@@ -9,7 +9,7 @@ radius = 192.0
 [node name="Turret" type="Node2D" unique_id=684046675]
 rotation = 1.5707964
 script = ExtResource("1_jtgif")
-shot_interval = 1.0
+shot_interval = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1519175421]
 texture = ExtResource("1_b5i8c")

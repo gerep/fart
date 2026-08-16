@@ -61,6 +61,16 @@ func _area_exited(area: Area2D) -> void:
 	_has_target = false
 	_is_aiming = false
 	_shot_timer = 0.0
+	call_deferred("_find_new_target")
+
+
+func _find_new_target() -> void:
+	if _has_target:
+		return
+
+	for area: Area2D in range_area.get_overlapping_areas():
+		_area_entered(area)
+		return
 
 
 func _fire_shot() -> void:
