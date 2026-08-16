@@ -669,8 +669,9 @@ tile_map_data = PackedByteArray("AAAAAAEAAQABAAEAAAAAAAIAAQABAAIAAAAAAAMAAQAEAAI
 tile_set = SubResource("TileSet_20cm6")
 
 [node name="BuildableLayer" type="TileMapLayer" parent="." unique_id=1485729036]
-z_index = 1
 tile_set = SubResource("TileSet_8bdhr")
+
+[node name="Turrets" type="Node2D" parent="." unique_id=331287401]
 
 [node name="Path2D" type="Path2D" parent="." unique_id=617201335]
 curve = SubResource("Curve2D_o5qli")
@@ -679,6 +680,7 @@ curve = SubResource("Curve2D_o5qli")
 
 [node name="HUD" type="Control" parent="CanvasLayer" unique_id=941564805]
 layout_mode = 3
+mouse_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -714,3 +716,5 @@ theme_override_fonts/font = ExtResource("2_0wfyh")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_0wfyh")
 text = "Buy Turret"
+
+[node name="PlacementPreview" type="Node2D" parent="." unique_id=173537822]
