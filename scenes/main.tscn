@@ -717,6 +717,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_o5qli")
 text = "Base HP: 10"
 
+[node name="WaveLabel" type="Label" parent="CanvasLayer/HUD/MarginContainer/HBoxContainer" unique_id=729431051]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0wfyh")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_o5qli")
+text = "Wave: 0"
+
 [node name="SeparatorControl" type="Control" parent="CanvasLayer/HUD/MarginContainer/HBoxContainer" unique_id=1760300728]
 layout_mode = 2
 
@@ -726,6 +733,13 @@ theme_override_fonts/font = ExtResource("2_0wfyh")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_0wfyh")
 text = "Buy Turret"
+
+[node name="StartWaveButton" type="Button" parent="CanvasLayer/HUD/MarginContainer/HBoxContainer" unique_id=490533238]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0wfyh")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_0wfyh")
+text = "Start Wave"
 
 [node name="DefeatPanel" type="Control" parent="CanvasLayer" unique_id=58033719]
 visible = false

@@ -2,6 +2,7 @@ extends Node2D
 
 @export_range(1, 100, 1) var enemy_count: int = 5
 @export var enemy_spawn_interval: float = 0.75
+@export_range(0, 100, 1) var enemy_count_growth: int = 2
 @export_range(1, 100, 1) var base_health: int = 10
 
 @onready var tile_map_layer: TileMapLayer = $TileMapLayer
@@ -20,31 +21,58 @@ var _buildable_cells: Array[Vector2i] = []
 var _occupied_cells: Dictionary = {}
 var _is_building: bool = false
 var _is_game_over: bool = false
+var _wave_active: bool = false
+var _is_spawning: bool = false
+var _wave_number: int = 0
+var _remaining_enemies: int = 0
 var _preview_turret: Node2D
 
 
 func _ready() -> void:
 	GameManager.build_mode.connect(_on_build_mode)
 	GameManager.base_health_changed.emit(base_health)
+	GameManager.wave_start_requested.connect(_start_wave)
+	GameManager.wave_number_changed.emit(_wave_number)
+	GameManager.wave_state_changed.emit(false)
 	restart_button.pressed.connect(_restart_game)
-	_spawn_enemies()
 
 
-func _spawn_enemies() -> void:
-	for index in enemy_count:
+func _start_wave() -> void:
+	if _wave_active or _is_game_over:
+		return
+
+	_wave_number += 1
+	_wave_active = true
+	_remaining_enemies = 0
+	GameManager.wave_number_changed.emit(_wave_number)
+	GameManager.wave_state_changed.emit(true)
+	_spawn_wave()
+
+
+func _spawn_wave() -> void:
+	_is_spawning = true
+	var wave_enemy_count := enemy_count + (_wave_number - 1) * enemy_count_growth
+
+	for index in wave_enemy_count:
 		if _is_game_over:
+			_is_spawning = false
 			return
 
+		_remaining_enemies += 1
 		_spawn_enemy()
 
-		if index < enemy_count - 1:
+		if index < wave_enemy_count - 1:
 			await get_tree().create_timer(enemy_spawn_interval).timeout
+
+	_is_spawning = false
+	_check_wave_complete()
 
 
 func _spawn_enemy() -> void:
 	var enemy: Enemy = ENEMY.instantiate()
 	enemy.speed = randf_range(enemy.speed * 0.8, enemy.speed * 1.2)
 	enemy.escaped.connect(_on_enemy_escaped)
+	enemy.died.connect(_on_enemy_died)
 	enemies.add_child(enemy)
 	enemy.setup(path)
 
@@ -55,9 +83,27 @@ func _on_enemy_escaped() -> void:
 
 	base_health -= 1
 	GameManager.base_health_changed.emit(base_health)
+	_enemy_removed_from_wave()
 
 	if base_health <= 0:
 		_game_over()
+
+
+func _on_enemy_died() -> void:
+	_enemy_removed_from_wave()
+
+
+func _enemy_removed_from_wave() -> void:
+	_remaining_enemies -= 1
+	_check_wave_complete()
+
+
+func _check_wave_complete() -> void:
+	if not _wave_active or _is_spawning or _remaining_enemies > 0:
+		return
+
+	_wave_active = false
+	GameManager.wave_state_changed.emit(false)
 
 
 func _game_over() -> void:

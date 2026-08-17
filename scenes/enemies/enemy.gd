@@ -5,6 +5,7 @@ extends Area2D
 @export var health: int = 1
 
 signal escaped
+signal died
 
 @onready var health_label: Label = $HealthLabel
 
@@ -25,6 +26,7 @@ func take_damage(amount: int) -> void:
 	health -= amount
 	health_label.text = str(health)
 	if health <= 0:
+		died.emit()
 		queue_free()
 
 
