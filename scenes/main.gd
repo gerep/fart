@@ -3,6 +3,7 @@ extends Node2D
 @export_range(1, 100, 1) var enemy_count: int = 5
 @export var enemy_spawn_interval: float = 0.75
 @export_range(0, 100, 1) var enemy_count_growth: int = 2
+@export_range(0.0, 1.0, 0.01) var enemy_health_growth: float = 0.1
 @export_range(1, 100, 1) var base_health: int = 10
 @export_range(0, 100, 1) var starting_money: int = 10
 @export_range(1, 100, 1) var turret_cost: int = 5
@@ -81,6 +82,8 @@ func _spawn_wave() -> void:
 func _spawn_enemy() -> void:
 	var enemy_scene: PackedScene = ENEMY_SCENES[randi_range(0, ENEMY_SCENES.size() - 1)]
 	var enemy: Enemy = enemy_scene.instantiate()
+	var wave_multiplier := 1.0 + enemy_health_growth * float(_wave_number - 1)
+	enemy.health = maxi(1, roundi(enemy.health * wave_multiplier))
 	enemy.speed = randf_range(enemy.speed * 0.8, enemy.speed * 1.2)
 	enemy.escaped.connect(_on_enemy_escaped)
 	enemy.died.connect(_on_enemy_died)
