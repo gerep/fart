@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://yvudkxl4fkwr" path="res://assets/images/towerDefense_tile245.png" id="2_3jqg4"]
 
 [node name="Runner" unique_id=1026434177 instance=ExtResource("1_enemy")]
-speed = 140.0
+speed = 180.0
 health = 3
 
 [node name="Sprite2D" parent="." index="0" unique_id=488229082]
