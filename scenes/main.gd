@@ -154,6 +154,14 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_S:
+		_start_wave()
+		return
+
+	if event.is_action_pressed("build_mode") and not _is_building and not _is_game_over and _money >= turret_cost:
+		_on_build_mode(true)
+		return
+
 	if event.is_action_pressed("ui_cancel") and _is_building:
 		_on_build_mode(false)
 		return
