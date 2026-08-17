@@ -26,8 +26,9 @@ func _process(delta: float) -> void:
 
 
 func _area_entered(area: Area2D) -> void:
-	if area.collision_layer & 2 == 0:
+	var enemy := area as Enemy
+	if enemy == null:
 		return
 
-	area.call_deferred("queue_free")
+	enemy.call_deferred("take_damage", 1)
 	call_deferred("queue_free")
