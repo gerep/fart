@@ -11,7 +11,7 @@ radius = 16.03122
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_enemy")
-health = 5
+health = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=488229082]
 texture = ExtResource("2_8e3ao")

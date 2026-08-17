@@ -4,6 +4,9 @@ extends Node2D
 @export var enemy_spawn_interval: float = 0.75
 @export_range(0, 100, 1) var enemy_count_growth: int = 2
 @export_range(1, 100, 1) var base_health: int = 10
+@export_range(0, 100, 1) var starting_money: int = 10
+@export_range(1, 100, 1) var turret_cost: int = 5
+@export_range(0, 100, 1) var kill_reward: int = 1
 
 @onready var tile_map_layer: TileMapLayer = $TileMapLayer
 @onready var buildable_layer: TileMapLayer = $BuildableLayer
@@ -25,12 +28,15 @@ var _wave_active: bool = false
 var _is_spawning: bool = false
 var _wave_number: int = 0
 var _remaining_enemies: int = 0
+var _money: int
 var _preview_turret: Node2D
 
 
 func _ready() -> void:
 	GameManager.build_mode.connect(_on_build_mode)
 	GameManager.base_health_changed.emit(base_health)
+	_money = starting_money
+	_emit_money_state()
 	GameManager.wave_start_requested.connect(_start_wave)
 	GameManager.wave_number_changed.emit(_wave_number)
 	GameManager.wave_state_changed.emit(false)
@@ -90,7 +96,18 @@ func _on_enemy_escaped() -> void:
 
 
 func _on_enemy_died() -> void:
+	_change_money(kill_reward)
 	_enemy_removed_from_wave()
+
+
+func _change_money(amount: int) -> void:
+	_money += amount
+	_emit_money_state()
+
+
+func _emit_money_state() -> void:
+	GameManager.money_changed.emit(_money)
+	GameManager.turret_affordability_changed.emit(_money >= turret_cost)
 
 
 func _enemy_removed_from_wave() -> void:
@@ -181,9 +198,10 @@ func _is_cell_available(cell: Vector2i) -> bool:
 
 func _try_place_turret() -> void:
 	var cell := _get_mouse_cell()
-	if not _is_cell_available(cell):
+	if not _is_cell_available(cell) or _money < turret_cost:
 		return
 
+	_change_money(-turret_cost)
 	var turret: Node2D = TURRET.instantiate()
 	turrets.add_child(turret)
 	turret.global_position = _get_cell_world_position(cell)

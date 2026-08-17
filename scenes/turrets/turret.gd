@@ -4,8 +4,10 @@ const DEFAULT_BULLET = preload("res://scenes/bullets/bullet.tscn")
 
 @export var rotation_speed: float = 8.0
 @export var shot_interval: float = 0.15
+@export_range(32.0, 512.0, 1.0) var range_distance: float = 192.0
 
 @onready var range_area: Area2D = $RangeArea
+@onready var range_shape: CollisionShape2D = $RangeArea/CollisionShape2D
 @onready var range_indicator: Sprite2D = $RangeIndicator
 
 var _has_target := false
@@ -18,9 +20,21 @@ var _shot_timer := 0.0
 
 
 func _ready() -> void:
+	_configure_range()
 	range_area.area_entered.connect(_area_entered)
 	range_area.area_exited.connect(_area_exited)
 	_target_global_rotation = global_rotation
+
+
+func _configure_range() -> void:
+	var circle_shape := range_shape.shape as CircleShape2D
+	var configured_shape: CircleShape2D = circle_shape.duplicate()
+	configured_shape.radius = range_distance
+	range_shape.shape = configured_shape
+
+	var indicator_diameter := range_indicator.texture.get_width()
+	var indicator_scale := (range_distance * 2.0) / indicator_diameter
+	range_indicator.scale = Vector2.ONE * indicator_scale
 
 
 func _process(delta: float) -> void:
