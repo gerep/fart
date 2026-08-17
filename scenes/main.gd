@@ -2,6 +2,7 @@ extends Node2D
 
 @export_range(1, 100, 1) var enemy_count: int = 5
 @export var enemy_spawn_interval: float = 0.75
+@export_range(1, 100, 1) var base_health: int = 10
 
 @onready var tile_map_layer: TileMapLayer = $TileMapLayer
 @onready var buildable_layer: TileMapLayer = $BuildableLayer
@@ -21,6 +22,7 @@ var _preview_turret: Node2D
 
 func _ready() -> void:
 	GameManager.build_mode.connect(_on_build_mode)
+	GameManager.base_health_changed.emit(base_health)
 	_spawn_enemies()
 
 
@@ -35,8 +37,14 @@ func _spawn_enemies() -> void:
 func _spawn_enemy() -> void:
 	var enemy: Enemy = ENEMY.instantiate()
 	enemy.speed = randf_range(enemy.speed * 0.8, enemy.speed * 1.2)
+	enemy.escaped.connect(_on_enemy_escaped)
 	enemies.add_child(enemy)
 	enemy.setup(path)
+
+
+func _on_enemy_escaped() -> void:
+	base_health -= 1
+	GameManager.base_health_changed.emit(base_health)
 
 
 func _process(_delta: float) -> void:

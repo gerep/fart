@@ -4,6 +4,8 @@ extends Area2D
 @export var speed: float = 100.0
 @export var health: int = 1
 
+signal escaped
+
 @onready var health_label: Label = $HealthLabel
 
 var path: Path2D
@@ -31,6 +33,7 @@ func _process(delta: float) -> void:
 
 	var path_length := path.curve.get_baked_length()
 	if distance >= path_length:
+		escaped.emit()
 		queue_free()
 		return
 

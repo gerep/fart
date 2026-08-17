@@ -709,6 +709,13 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_o5qli")
 text = "$123"
 
+[node name="BaseHealthLabel" type="Label" parent="CanvasLayer/HUD/MarginContainer/HBoxContainer" unique_id=781936521]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_0wfyh")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_o5qli")
+text = "Base HP: 10"
+
 [node name="SeparatorControl" type="Control" parent="CanvasLayer/HUD/MarginContainer/HBoxContainer" unique_id=1760300728]
 layout_mode = 2
 
