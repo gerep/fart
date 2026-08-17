@@ -10,6 +10,8 @@ extends Node2D
 @onready var path: Path2D = $Path2D
 @onready var turrets: Node2D = $Turrets
 @onready var enemies: Node2D = $Enemies
+@onready var defeat_panel: Control = $CanvasLayer/DefeatPanel
+@onready var restart_button: Button = $CanvasLayer/DefeatPanel/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/RestartButton
 
 const TURRET = preload("uid://crp8t36tadjcf")
 const ENEMY = preload("res://scenes/enemies/enemy.tscn")
@@ -17,17 +19,22 @@ const ENEMY = preload("res://scenes/enemies/enemy.tscn")
 var _buildable_cells: Array[Vector2i] = []
 var _occupied_cells: Dictionary = {}
 var _is_building: bool = false
+var _is_game_over: bool = false
 var _preview_turret: Node2D
 
 
 func _ready() -> void:
 	GameManager.build_mode.connect(_on_build_mode)
 	GameManager.base_health_changed.emit(base_health)
+	restart_button.pressed.connect(_restart_game)
 	_spawn_enemies()
 
 
 func _spawn_enemies() -> void:
 	for index in enemy_count:
+		if _is_game_over:
+			return
+
 		_spawn_enemy()
 
 		if index < enemy_count - 1:
@@ -43,8 +50,26 @@ func _spawn_enemy() -> void:
 
 
 func _on_enemy_escaped() -> void:
+	if _is_game_over:
+		return
+
 	base_health -= 1
 	GameManager.base_health_changed.emit(base_health)
+
+	if base_health <= 0:
+		_game_over()
+
+
+func _game_over() -> void:
+	_is_game_over = true
+	_on_build_mode(false)
+	enemies.process_mode = Node.PROCESS_MODE_DISABLED
+	turrets.process_mode = Node.PROCESS_MODE_DISABLED
+	defeat_panel.visible = true
+
+
+func _restart_game() -> void:
+	get_tree().reload_current_scene()
 
 
 func _process(_delta: float) -> void:
