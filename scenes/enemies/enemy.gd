@@ -1,8 +1,11 @@
 class_name Enemy
 extends Area2D
 
+enum DietCategory { RUNNER, TANK, SWARM }
+
 @export var speed: float = 100.0
-@export var health: int = 1
+@export var health: int = 10
+@export var category: DietCategory = DietCategory.RUNNER
 
 signal escaped
 signal died

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://v72d68ypv7uj"]
+
+[ext_resource type="PackedScene" uid="uid://fn656utfpsjd" path="res://scenes/enemies/enemy.tscn" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://bdq8qaqfqdvp0" path="res://assets/images/towerDefense_tile247.png" id="2_75rj6"]
+
+[node name="Swarm" unique_id=526330211 instance=ExtResource("1_enemy")]
+health = 5
+category = 2
+
+[node name="Sprite2D" parent="." index="0" unique_id=488229082]
+texture = ExtResource("2_75rj6")

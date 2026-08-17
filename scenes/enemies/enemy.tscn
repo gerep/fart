@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://fn656utfpsjd"]
 
 [ext_resource type="Script" uid="uid://cf4afw85popbs" path="res://scenes/enemies/enemy.gd" id="1_enemy"]
-[ext_resource type="Texture2D" uid="uid://yvudkxl4fkwr" path="res://assets/images/towerDefense_tile245.png" id="2_8e3ao"]
+[ext_resource type="Texture2D" uid="uid://8sr5gjclacft" path="res://assets/images/towerDefense_tile204.png" id="2_8e3ao"]
 [ext_resource type="FontFile" uid="uid://454j7vp2imuh" path="res://assets/font/Orbitron-VariableFont_wght.ttf" id="3_38ino"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20cm6"]
@@ -11,7 +11,6 @@ radius = 16.03122
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_enemy")
-health = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=488229082]
 texture = ExtResource("2_8e3ao")

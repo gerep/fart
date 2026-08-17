@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://by34k7qugnk6h"]
+
+[ext_resource type="PackedScene" uid="uid://fn656utfpsjd" path="res://scenes/enemies/enemy.tscn" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://dbn2i1newerew" path="res://assets/images/towerDefense_tile246.png" id="2_o2lwj"]
+
+[node name="Tank" unique_id=948752931 instance=ExtResource("1_enemy")]
+speed = 70.0
+health = 30
+category = 1
+
+[node name="Sprite2D" parent="." index="0" unique_id=488229082]
+texture = ExtResource("2_o2lwj")

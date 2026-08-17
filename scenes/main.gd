@@ -18,7 +18,11 @@ extends Node2D
 @onready var restart_button: Button = $CanvasLayer/DefeatPanel/CenterContainer/PanelContainer/MarginContainer/HBoxContainer/RestartButton
 
 const TURRET = preload("uid://crp8t36tadjcf")
-const ENEMY = preload("res://scenes/enemies/enemy.tscn")
+const ENEMY_SCENES: Array[PackedScene] = [
+	preload("res://scenes/enemies/runner.tscn"),
+	preload("res://scenes/enemies/tank.tscn"),
+	preload("res://scenes/enemies/swarm.tscn"),
+]
 
 var _buildable_cells: Array[Vector2i] = []
 var _occupied_cells: Dictionary = {}
@@ -75,7 +79,8 @@ func _spawn_wave() -> void:
 
 
 func _spawn_enemy() -> void:
-	var enemy: Enemy = ENEMY.instantiate()
+	var enemy_scene: PackedScene = ENEMY_SCENES[randi_range(0, ENEMY_SCENES.size() - 1)]
+	var enemy: Enemy = enemy_scene.instantiate()
 	enemy.speed = randf_range(enemy.speed * 0.8, enemy.speed * 1.2)
 	enemy.escaped.connect(_on_enemy_escaped)
 	enemy.died.connect(_on_enemy_died)
