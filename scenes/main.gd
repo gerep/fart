@@ -216,6 +216,9 @@ func _try_place_turret() -> void:
 	_occupied_cells[cell] = turret
 	buildable_layer.erase_cell(cell)
 
+	if _money < turret_cost:
+		_on_build_mode(false)
+
 
 func _place_preview_turret() -> void:
 	_preview_turret = TURRET.instantiate()
