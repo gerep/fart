@@ -4,13 +4,26 @@ extends Area2D
 @export var speed: float = 100.0
 @export var health: int = 1
 
+@onready var health_label: Label = $HealthLabel
+
 var path: Path2D
 var distance: float = 0.0
+
+
+func _ready() -> void:
+	health_label.text = str(health)
 
 
 func setup(new_path: Path2D) -> void:
 	path = new_path
 	global_transform = path.global_transform * path.curve.sample_baked_with_rotation(0.0)
+
+
+func take_damage(amount: int) -> void:
+	health -= amount
+	health_label.text = str(health)
+	if health <= 0:
+		queue_free()
 
 
 func _process(delta: float) -> void:
