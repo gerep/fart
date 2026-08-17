@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://8sr5gjclacft" path="res://assets/images/towerDefense_tile204.png" id="1_b5i8c"]
 [ext_resource type="Script" uid="uid://j8c67a4cs18f" path="res://scenes/turrets/turret.gd" id="1_jtgif"]
+[ext_resource type="Texture2D" uid="uid://b1s8xkgs2nqxb" path="res://assets/images/turret_range.svg" id="3_range"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20cm6"]
 radius = 192.0
@@ -9,8 +10,6 @@ radius = 192.0
 [node name="Turret" type="Node2D" unique_id=684046675]
 rotation = 1.5707964
 script = ExtResource("1_jtgif")
-rotation_speed = null
-shot_interval = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1519175421]
 texture = ExtResource("1_b5i8c")
@@ -21,3 +20,8 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangeArea" unique_id=1236560470]
 shape = SubResource("CircleShape2D_20cm6")
+
+[node name="RangeIndicator" type="Sprite2D" parent="." unique_id=998135421]
+visible = false
+z_index = 1
+texture = ExtResource("3_range")

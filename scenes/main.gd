@@ -195,6 +195,7 @@ func _place_preview_turret() -> void:
 	_preview_turret = TURRET.instantiate()
 	placement_preview.add_child(_preview_turret)
 	_preview_turret.call("set_combat_enabled", false)
+	_preview_turret.call("set_range_indicator_visible", true)
 
 
 func _remove_place_preview_turret() -> void:

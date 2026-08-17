@@ -6,6 +6,7 @@ const DEFAULT_BULLET = preload("res://scenes/bullets/bullet.tscn")
 @export var shot_interval: float = 0.15
 
 @onready var range_area: Area2D = $RangeArea
+@onready var range_indicator: Sprite2D = $RangeIndicator
 
 var _has_target := false
 var _target: Area2D
@@ -103,3 +104,7 @@ func _spawn_bullet(target_position: Vector2) -> void:
 
 func set_combat_enabled(enabled: bool) -> void:
 	range_area.monitoring = enabled
+
+
+func set_range_indicator_visible(enabled: bool) -> void:
+	range_indicator.visible = enabled
