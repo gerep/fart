@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bdq8qaqfqdvp0" path="res://assets/images/towerDefense_tile247.png" id="2_75rj6"]
 
 [node name="Swarm" unique_id=526330211 instance=ExtResource("1_enemy")]
+speed = 90.0
 health = 5
 category = 2
 
